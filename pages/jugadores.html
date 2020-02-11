@@ -28,9 +28,7 @@
             <li class="nav-item">
               <a class="nav-link active" id="profile-tab"  href="jugadores.html" role="tab" aria-controls="jugadores" aria-selected="true">Jugadores</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-            </li>
+           
           </ul>
         
           <br>
@@ -98,6 +96,48 @@
               </div>
             </div>
           </div>
+
+          <div id="id02" class="w3-modal">
+            <div class="w3-modal-content">
+              <div class="container">
+                <div class="form-group">
+                  <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                  <br>
+                  <div class="form-group col-md-6">
+                    <label for="exampleInputPassword1">Id</label>
+                    <input type="text" class="form-control" id="iDUsuario">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="exampleInputEmail1">Nombre</label>
+                    <input type="text" class="form-control" id="nombres" aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="exampleInputPassword1">Usuario</label>
+                    <input type="text" class="form-control" id="usernames">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="exampleInputPassword1">Correo</label>
+                    <input type="email" class="form-control" id="correos">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="exampleInputPassword1">Telefono</label>
+                    <input type="text" class="form-control" id="telefonos">
+                  </div>
+                  <br>
+
+                  <div class="form-group col-md-6">
+                    
+                    <input type="submit" class="form-control btn btn-info" onclick="editarValores();" id="exampleInputPassword1" value="Editar" >
+                  </div>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          
         
     </div>
     

@@ -21,7 +21,7 @@ function jugadores(method){
 
 
                 for (i in r) {
-                    $("#cuerpo").append('<tr><th scope="row">'+r[i].id+'</th><td>'+r[i].name+'</td><td>'+r[i].username+'</td><td>'+r[i].email+'</td><td>'+r[i].phone+'</td><th scope="col" class="text-primary" id=""><a href="javascript:pasarVariables(\'editar.html\','+r[i].id+')">Editar</a> </th><th scope="col" class="text-primary"><a href="eliminar.html">Eliminar</a> </th></tr>')
+                    $("#cuerpo").append('<tr><th scope="row">'+r[i].id+'</th><td>'+r[i].name+'</td><td>'+r[i].username+'</td><td>'+r[i].email+'</td><td>'+r[i].phone+'</td><th scope="col" class="text-primary" id=""><a href="javascript:editar('+r[i].id+')">Editar</a> </th><th scope="col" class="text-primary"><a href="javascript:eliminar('+r[i].id+')">Eliminar</a> </th></tr>')
  
                 
                 }
@@ -38,17 +38,144 @@ function jugadores(method){
     });
 } 
 
-function pasarVariables(pagina, nombres) {
-    // pagina +="?";
-    // nomVec = nombres.split(",");
-    // for (i=0; i<nomVec.length; i++)
-    //   pagina += nomVec[i] + "=" + escape(eval(nomVec[i]))+"&";
-    // pagina = pagina.substring(0,pagina.length-1);
-    // location.href=pagina;
 
-    console.log(pagina +" " +  nombres)
+
+  function eliminar(valorId){
+      $("#cuerpo").empty();
+      var id = 1;
+
+      
+    $.ajax({
+        type: "GET",
+        url: "https://jsonplaceholder.typicode.com/users",
+        data: "",
+        contentType: "application/Json; charset=utf-8",
+        dataType: 'Json',
+
+
+        success: function (r) {
+
+
+                for (i in r) {
+                    if (id != valorId) {
+                        
+                        $("#cuerpo").append('<tr><th scope="row">'+r[i].id+'</th><td>'+r[i].name+'</td><td>'+r[i].username+'</td><td>'+r[i].email+'</td><td>'+r[i].phone+'</td><th scope="col" class="text-primary" id=""><a href="javascript:editar('+r[i].id+')">Editar</a> </th><th scope="col" class="text-primary"><a href="javascript:eliminar('+r[i].id+')">Eliminar</a> </th></tr>')
+                    }
+                    id+=1;
+                
+                }
+
+            
+        },
+        error: function (r) {
+            
+            
+        },
+        failure: function (r) {
+
+        }
+    });
   }
 
+
+  function editar(valorId){
+    
+    
+    var urls = "https://jsonplaceholder.typicode.com/users/" + valorId
+
+    
+  $.ajax({
+      type: "GET",
+      url: urls,
+      data: "",
+      contentType: "application/Json; charset=utf-8",
+      dataType: 'Json',
+
+
+      success: function (r) {
+
+
+            //   for (i in r) {
+            //       if (id != valorId) {
+                      
+            //           $("#cuerpo").append('<tr><th scope="row">'+r[i].id+'</th><td>'+r[i].name+'</td><td>'+r[i].username+'</td><td>'+r[i].email+'</td><td>'+r[i].phone+'</td><th scope="col" class="text-primary" id=""><a href="javascript:pasarVariables('+r[i].id+')">Editar</a> </th><th scope="col" class="text-primary"><a href="javascript:eliminar('+r[i].id+')">Eliminar</a> </th></tr>')
+            //       }
+            //       id+=1;
+              
+            //   }
+
+            var idMax = r.id;
+             var nombres = r.name;
+            var usuarios = r.username;
+             var correos = r.email;
+            var telefonos = r.phone;
+
+            $("#cuerpo").empty();
+            $("#iDUsuario").val(idMax);
+            $("#nombres").val(nombres);
+            $("#usernames").val(usuarios);
+            $("#correos").val(correos);
+            $("#telefonos").val(telefonos);
+            $("#iDUsuario").prop('disable', true);
+            $("#id02").css("display", "inline");
+
+            
+
+          
+      },
+      error: function (r) {
+          
+          
+      },
+      failure: function (r) {
+
+      }
+  });
+}
+
+function editarValores(){
+    var num = 1;
+    idSel = $("#iDUsuario").val();
+    nombre = $("#nombres").val();
+    usuario = $("#usernames").val();
+    correo = $("#correos").val();
+    telefono = $("#telefonos").val();
+    $.ajax({
+        type: "GET",
+        url: "https://jsonplaceholder.typicode.com/users",
+        data: "",
+        contentType: "application/Json; charset=utf-8",
+        dataType: 'Json',
+
+
+        success: function (r) {
+
+
+                for (i in r) {
+                    if (num !=  idSel) {
+                        
+                        $("#cuerpo").append('<tr><th scope="row">'+r[i].id+'</th><td>'+r[i].name+'</td><td>'+r[i].username+'</td><td>'+r[i].email+'</td><td>'+r[i].phone+'</td><th scope="col" class="text-primary" id=""><a href="javascript:editar('+r[i].id+')">Editar</a> </th><th scope="col" class="text-primary"><a href="javascript:eliminar('+r[i].id+')">Eliminar</a> </th></tr>')
+                    }else{
+
+                        $("#cuerpo").append('<tr><th scope="row">'+idSel+'</th><td>'+nombre+'</td><td>'+usuario+'</td><td>'+correo+'</td><td>'+telefono+'</td><th scope="col" class="text-primary" id=""><a href="javascript:editar('+idSel+')">Editar</a> </th><th scope="col" class="text-primary"><a href="javascript:eliminar('+idSel+')">Eliminar</a> </th></tr>')
+                    }
+ 
+                    num += 1;
+                }
+
+                $("#id02").css("display", "none");
+            
+        },
+        error: function (r) {
+            
+            
+        },
+        failure: function (r) {
+
+        }
+    });
+
+}
 
 function myFunction(){
     $("#id01").css("display", "inline");
@@ -99,13 +226,16 @@ function guardar(){
     correo = $("#correo").val();
     telefono = $("#telefono").val();
 
-    $("#cuerpo").append('<tr><th scope="row">'+idMax1+'</th><td>'+nombre+'</td><td>'+usuario+'</td><td>'+correo+'</td><td>'+telefono+'</td><th scope="col" class="text-primary" id=""><a href="javascript:pasarVariables(\'editar.html\','+idMax1+')">Editar</a> </th><th scope="col" class="text-primary"><a href="eliminar.html">Eliminar</a> </th></tr>')
+    $("#cuerpo").append('<tr><th scope="row">'+idMax1+'</th><td>'+nombre+'</td><td>'+usuario+'</td><td>'+correo+'</td><td>'+telefono+'</td><th scope="col" class="text-primary" id=""><a href="javascript:editar('+idMax1+')">Editar</a> </th><th scope="col" class="text-primary"><a href="javascript:eliminar('+idMax1+')">Eliminar</a> </th></tr>')
     $("#id01").css("display", "none");
      $("#nombre").val("");
      $("#username").val("");
      $("#correo").val("");
      $("#telefono").val("");
     }
+
+
+
 
     
 
